@@ -101,7 +101,7 @@ body, html {
   min-height: 100vh;
   overflow-y: auto;
   z-index: 0;
-  padding-top: 200px; /* beri ruang atas */
+  padding-top: 150px; /* beri ruang atas */
 }
 
 #page2 .content {
@@ -122,6 +122,7 @@ body, html {
 #page2 video {
   width: 100%;
   margin: 15px 0;
+  margin-top: -20px; /* angka bisa diubah sesuai kebutuhan */
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
