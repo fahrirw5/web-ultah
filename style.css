@@ -101,7 +101,7 @@ body, html {
   min-height: 100vh;
   overflow-y: auto;
   z-index: 0;
-  padding-top: 150px; /* beri ruang atas */
+  padding-top: 120px; /* beri ruang atas */
 }
 
 #page2 .content {
@@ -170,8 +170,8 @@ body, html {
 }
 .pika {
   position: absolute;
-  top: 170px; /* jarak pikachu dari atas, sesuaikan dengan tinggi banner */
-  left: 75%;
+  top: 120px; /* jarak pikachu dari atas, sesuaikan dengan tinggi banner */
+  left: 85%;
   transform: translateX(-50%);
   z-index: 10;
   padding-top: 0;
