@@ -1,5 +1,4 @@
 window.addEventListener("DOMContentLoaded", () => {
-  // Ambil elemen-elemen penting
   const popup = document.getElementById("popup");
   const closeBtn = document.getElementById("closePopup");
   const video = document.getElementById("videoDelia");
@@ -9,13 +8,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const notePopup = document.getElementById("notePopup");
   const closeNote = document.getElementById("closeNote");
   const hbdBanner = document.querySelector(".hbd-banner");
-  
 
-  // Fungsi spawn pita
+  // Fungsi spawn ribbons
   function spawnRibbons() {
-    const ribbonCount = 15; // jumlah pita
+    const ribbonCount = 15;
     for (let i = 0; i < ribbonCount; i++) {
-      createRibbon(i * 300); // delay tiap 300ms
+      createRibbon(i * 300);
     }
   }
 
@@ -24,7 +22,6 @@ window.addEventListener("DOMContentLoaded", () => {
       const ribbon = document.createElement('div');
       ribbon.classList.add('ribbon');
 
-      // Pilih kiri atau kanan acak
       const side = Math.random() > 0.5 ? 'left' : 'right';
       const posX = Math.random() * (window.innerWidth / 2 - 30);
 
@@ -36,42 +33,78 @@ window.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         ribbon.remove();
-        createRibbon(0); // ulang terus
+        createRibbon(0);
       }, parseFloat(ribbon.style.animationDuration) * 1000);
     }, delay);
   }
 
-  // Fungsi buka halaman 2 setelah klik amplop
+  // Deteksi iOS untuk fallback tombol play manual
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (isIOS) {
+    // Buat tombol play manual dan sembunyikan dulu
+    const btnPlay = document.createElement('button');
+    btnPlay.textContent = "Tap to Play Music 🎵";
+    Object.assign(btnPlay.style, {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      padding: '15px 30px',
+      fontSize: '18px',
+      background: '#ff85c0',
+      border: 'none',
+      borderRadius: '10px',
+      cursor: 'pointer',
+      zIndex: 9999,
+      display: 'none',
+    });
+    document.body.appendChild(btnPlay);
+
+    btnPlay.addEventListener('click', () => {
+      lagu1.play().then(() => {
+        btnPlay.style.display = 'none';
+        console.log("Lagu1 started by manual tap");
+      }).catch(console.error);
+    });
+
+    window.showManualPlayButton = () => {
+      btnPlay.style.display = 'block';
+    };
+  } else {
+    window.showManualPlayButton = () => {}; // no-op for non-iOS
+  }
+
+  // Fungsi openPage2 dipanggil saat klik amplop
   window.openPage2 = function(el) {
-    console.log('openPage2 dipanggil oleh:', el);
     el.classList.add("envelope-clicked");
+
+    // Coba mainkan lagu langsung di sini tanpa delay
+    if (lagu1 && lagu2) {
+      lagu1.volume = 0.2;
+      lagu2.volume = 0.2;
+
+      lagu1.play().then(() => {
+        console.log("Lagu1 started");
+      }).catch(err => {
+        console.log("Autoplay error, show manual play button");
+        window.showManualPlayButton();
+      });
+
+      lagu1.addEventListener("ended", () => {
+        lagu2.play().catch(err => console.log("Lagu2 error:", err));
+      });
+    }
 
     setTimeout(() => {
       document.getElementById("page1").classList.remove("active");
       document.getElementById("page2").classList.add("active");
-
       spawnRibbons();
 
-      if (lagu1 && lagu2) {
-      lagu1.volume = 0.2;
-      lagu2.volume = 0.2;
+      if (hbd) hbd.classList.add('animate');
+    }, 1500);
+  };
 
-      // Mulai mainkan lagu1 setelah klik amplop
-      lagu1.play().catch(err => console.log("Lagu 1 error:", err));
-
-      // Saat lagu1 selesai, mainkan lagu2 yang loop
-      const onLagu1Ended = () => {
-        lagu2.play().catch(err => console.log("Lagu 2 error:", err));
-        lagu1.removeEventListener("ended", onLagu1Ended);
-      };
-      lagu1.addEventListener("ended", onLagu1Ended);
-    }
-
-    if (hbd) {
-      hbd.classList.add('animate');
-    }
-  }, 1500);
-};
 
   // Fungsi show popup dengan fade in/out
   window.showPopup = function() {
