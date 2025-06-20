@@ -52,26 +52,25 @@ window.addEventListener("DOMContentLoaded", () => {
       spawnRibbons();
 
       if (lagu1 && lagu2) {
-        lagu1.volume = 0.2;
-        lagu2.volume = 0.2;
+      lagu1.volume = 0.2;
+      lagu2.volume = 0.2;
 
-        // Mainkan lagu pertama
-        lagu1.play().catch(err => console.log("Lagu 1 error:", err));
+      // Mulai mainkan lagu1 setelah klik amplop
+      lagu1.play().catch(err => console.log("Lagu 1 error:", err));
 
-        // Pasang event listener ended sekali saja untuk lagu1
-        const onLagu1Ended = () => {
-          lagu2.play().catch(err => console.log("Lagu 2 error:", err));
-          lagu1.removeEventListener("ended", onLagu1Ended);
-        };
-        lagu1.addEventListener("ended", onLagu1Ended);
-      }
+      // Saat lagu1 selesai, mainkan lagu2 yang loop
+      const onLagu1Ended = () => {
+        lagu2.play().catch(err => console.log("Lagu 2 error:", err));
+        lagu1.removeEventListener("ended", onLagu1Ended);
+      };
+      lagu1.addEventListener("ended", onLagu1Ended);
+    }
 
-      if (hbd) {
-        hbd.classList.add('animate');
-      }
-
-    }, 1500);
-  };
+    if (hbd) {
+      hbd.classList.add('animate');
+    }
+  }, 1500);
+};
 
   // Fungsi show popup dengan fade in/out
   window.showPopup = function() {
