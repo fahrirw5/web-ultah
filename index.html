@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bsdeyyyy</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+</head>
+<body>
+
+   <!-- Lagu pertama (main sekali saja) -->
+<audio id="lagu1">
+  <source src="audio/blue.mp3" type="audio/mp3" />
+  Browsermu tidak mendukung audio.
+</audio>
+
+<!-- Lagu kedua (yang di-loop selamanya) -->
+<audio id="lagu2" loop>
+  <source src="audio/hbd.mp3" type="audio/mp3" />
+  Browsermu tidak mendukung audio.
+</audio>
+
+  <!-- Halaman Amplop -->
+<div id="page1" class="page active">
+    <div class="floating">
+      <img
+        src="img/amplop.png"
+        alt="Amplop Pink"
+        class="envelope"
+        onclick="openPage2(this)"
+        style="cursor: pointer;" />
+    </div>
+</div>
+
+
+  <!-- Halaman Ucapan -->
+      
+
+  <div id="page2" class="page">
+    
+      <div class="hbd">
+      <img src="img/hbd.png" alt="Happy Birthday" class="hbd-banner" />
+      </div>
+
+      <div class="pika">
+      <img src="img/pika.gif" alt="Pikachu" class="pika-gif" onclick="showPopup()" style="cursor: pointer;" />
+      </div>
+
+    <div class="content">
+      <video id="videoDelia" class="scroll-video" autoplay muted playsinline>
+      <source src="video/delia.mp4" type="video/mp4" />
+      Browsermu tidak mendukung video.
+      </video>
+    </div>
+
+      <div id="notePopup" class="sticky-note">
+      <button id="closeNote" class="close-btn" aria-label="Close">&times;</button>
+      <p class="note-text">
+        Pibesdeyyyyy! 🎉🎂<br />
+        I hope today reminds you how loved you are 💖<br />
+        and how much joy you bring just by being you 🌸<br />
+        Wishing you warmth, laughter, and a heart full of peace ✨😊
+      </p>
+      </div>
+
+    </div>
+  </div>
+
+    <div id="popup" class="popup">
+  <div class="popup-content">
+    <button id="closePopup" class="close-btn" aria-label="Tutup popup">&times;</button>
+    <img src="img/hadiah.png" alt="Hadiah" class="popup-gift" />
+    <p>Yeayy dapet 🎉🎁<br>
+    <b>Steve Madden BRYA-N</b></p>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

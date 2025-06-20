@@ -1,0 +1,420 @@
+/* Reset & dasar */
+body, html {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden; /* cegah scroll ke samping */
+  font-family: Arial, sans-serif;
+  background: #fff0f6;
+}
+.countdown {
+  font-size: 1.5em;
+  color: #d6336c;  /* warna pink */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.page {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #ffe4ec;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+.page.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.page.show {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Amplop */
+
+#page1 {
+  position: fixed;   /* ini kuncinya */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.floating {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-20px);
+  }
+}
+
+.envelope {
+  width: 200px;
+  transition: transform 3s ease, opacity 3s ease;
+  z-index: 10;
+}
+
+.envelope-clicked {
+  animation: spinZoomOut 3s forwards;
+}
+
+@keyframes spinZoomOut {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(8) rotate(1440deg);
+    opacity: 0;
+  }
+}
+
+
+/* Page 2 content */
+#page2 {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  z-index: 0;
+  padding-top: 200px; /* beri ruang atas */
+}
+
+#page2 .content {
+  max-width: 480px;
+  margin: 30px auto 60px;
+  padding: 0 15px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+}
+#page2 img:not(.hbd-banner):not(.pika-gif) {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* efek hanya untuk foto biasa */
+}
+#page2 video {
+  width: 100%;
+  margin: 15px 0;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Ribbon */
+.ribbon {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  background-image: url('./img/pita.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  pointer-events: none;
+  z-index: 9999;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(-40px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+.hbd {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* pastikan lebih tinggi dari elemen lain */
+}
+.hbd-banner {
+  position: relative;
+  z-index: 10000; /* pastikan lebih tinggi dari elemen lain */
+  cursor: pointer; /* biar mouse jadi pointer */
+  width: 300px;
+  margin: 0px;
+  padding: 0;
+}
+.pika {
+  position: absolute;
+  top: 170px; /* jarak pikachu dari atas, sesuaikan dengan tinggi banner */
+  left: 65%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding-top: 0;
+}
+
+.pika-gif {
+  width: 100px;
+  margin: 0; /* hilangkan margin negatif */
+  padding: 0;
+}
+
+/* Opsional: animasi turun dari atas */
+@keyframes dropIn {
+  0% {
+    transform: translate(-50%, -150px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.hbd.animate {
+  animation: dropIn 1s ease-out forwards;
+}
+
+.responsive-video {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 12px;
+}
+.scroll-video {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 320px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.6s ease forwards;
+  position: relative;
+}
+#notePopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background-color: #ffc0cb; /* warna pink soft */
+  padding: 35px 20px 30px;
+  border-radius: 8px;
+  width: 280px;
+  box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.3);
+  font-family: 'Patrick Hand', cursive, sans-serif;
+  font-size: 1.1rem;
+  text-align: left;
+  z-index: 10000; /* pastikan di atas popup lain */
+  display: none;
+  overflow: visible;
+  position: fixed;
+  /* animasi */
+  animation-fill-mode: forwards;
+  overflow: visible;
+}
+
+/* Sobekan atas */
+#notePopup::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: repeating-linear-gradient(
+    135deg,
+    #ffc0cb,
+    #ffc0cb 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  background-size: 12px 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  pointer-events: none;
+}
+
+/* Sobekan bawah */
+#notePopup::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: repeating-linear-gradient(
+    225deg,
+    #ffc0cb,
+    #ffc0cb 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  background-size: 12px 100%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  pointer-events: none;
+}
+
+/* Tombol close sticky note */
+#closeNote {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: #ff4d6d; /* merah muda agak cerah */
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 28px;
+  text-align: center;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: background-color 0.3s ease;
+  z-index: 10001;
+}
+
+#closeNote:hover {
+  background: #e60039;
+}
+
+/* Animasi masuk keluar */
+@keyframes noteIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes noteOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.8);
+  }
+}
+
+.popup-gift {
+  width: 250px;
+  height: auto;
+  margin-bottom: 5px;
+}
+.popup.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  z-index: 10;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #d6336c; /* warna pink saat hover */
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Media query opsional untuk layar max 480px (ponsel) */
+@media (max-width: 480px) {
+  .envelope {
+    width: 150px;
+  }
+  .hbd-banner {
+    width: 220px;
+    margin: -15px;
+  }
+  .pika-gif {
+    width: 80px;
+    margin: -25px;
+  }
+  #page2 .content {
+    max-width: 90%;
+    font-size: 1rem;
+  }
+}
