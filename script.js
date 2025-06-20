@@ -43,6 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Fungsi buka halaman 2 setelah klik amplop
   window.openPage2 = function(el) {
+    console.log('openPage2 dipanggil oleh:', el);
     el.classList.add("envelope-clicked");
 
     setTimeout(() => {
